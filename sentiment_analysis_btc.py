@@ -48,7 +48,9 @@ for i in tweets.polarity:
     elif i<0 :
         sentiment.append('negative')
 tweets['sentiment'] = sentiment
-tweet_chart = tweets.groupby('Date',as_index=False)['polarity'].mean()
+tweet_chart = tweets.sort_values(by=['Date'])
+tweet_chart = tweet_chart.groupby('Date',as_index=False)['polarity'].mean()
+tweet_chart = tweet_chart.drop([0,1])
 tweet_table = tweets[['Date','text','sentiment']]
 tweet_table.rename(columns={'text' : 'Tweets'},inplace=True)
 
